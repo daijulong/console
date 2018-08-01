@@ -16,5 +16,6 @@
         "psr-4": {
             "Daijulong\\Console\\": "src/"
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
