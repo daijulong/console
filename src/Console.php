@@ -100,15 +100,23 @@ class Console
 
     /**
      * @param string $question
-     * @param null $default
+     * @param string $default
+     * @param bool $must
      * @return null
      */
-    public function ask($question, $default = null)
+    public function ask($question, $default = '', $must = false)
     {
-        $this->line($question);
-        echo '>';
-        $handle = fopen('php://stdin', 'r');
-        return trim(fgets($handle)) ?: $default;
+        $answer = '';
+        $ask_times = 0;
+        while ($answer == '' && ($ask_times < 1 || $must == true)) {
+            $ask_times++;
+            $this->line($question);
+            echo '>';
+            $handle = fopen('php://stdin', 'r');
+            $answer = trim(fgets($handle)) ?: ($must ? '' : $default);
+        }
+
+        return $answer;
     }
 
     /**
