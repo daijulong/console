@@ -73,6 +73,8 @@ $bool = $console->yesOrNo('Are you going to give me your money?');
 
 > The console will be kept asking until you answer yes or no. Similarly, if any, the second parameter is the default value.
 
+### Other
+
 Coloring string
 
 ```php
