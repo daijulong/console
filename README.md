@@ -19,7 +19,7 @@ $  composer require daijulong/console
 composer.json
 
 ```php
-"daijulong/console": "^1.0"
+"daijulong/console": "^1.1"
 ```
 
 
