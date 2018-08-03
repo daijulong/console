@@ -63,7 +63,7 @@ Ask a question and get the answer
 $name = $console->ask('Who are you?');
 ```
 
-> You can use second parameter as the default value.
+> You can use second parameter as the default value. If there are third parameter equal to ```true``` , the answer can not be empty, even if the default value is set.
 
 Often, you just need to answer yes or no.
 
@@ -73,6 +73,13 @@ $bool = $console->yesOrNo('Are you going to give me your money?');
 
 > The console will be kept asking until you answer yes or no. Similarly, if any, the second parameter is the default value.
 
+Coloring string
+
+```php
+$console->colored('I am a message with red foreground color and yellow background color.', 'red', 'yellow');
+```
+
+> Similar to ```text```, it does not output directly, which is very useful in displaying a variety of styles in a piece of content.
 
 # License
 

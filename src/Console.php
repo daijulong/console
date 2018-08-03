@@ -22,7 +22,7 @@ class Console
     /**
      * get instance
      *
-     * @return static
+     * @return
      */
     public static function instance()
     {
@@ -37,7 +37,7 @@ class Console
      */
     public function line($text)
     {
-        echo $this->getColoredContent($text);
+        $this->text($text);
     }
 
     /**
@@ -45,7 +45,7 @@ class Console
      */
     public function info($text)
     {
-        echo $this->getColoredContent($text, 'green');
+        $this->text($text, 'green');
     }
 
     /**
@@ -53,7 +53,7 @@ class Console
      */
     public function success($text)
     {
-        echo $this->getColoredContent($text, 'green');
+        $this->text($text, 'green');
     }
 
     /**
@@ -61,7 +61,7 @@ class Console
      */
     public function failure($text)
     {
-        echo $this->getColoredContent($text, 'white', 'red');
+        $this->text($text, 'white', 'red');
     }
 
     /**
@@ -69,7 +69,7 @@ class Console
      */
     public function error($text)
     {
-        echo $this->getColoredContent($text, 'white', 'red');
+        $this->text($text, 'white', 'red');
     }
 
     /**
@@ -77,7 +77,7 @@ class Console
      */
     public function warning($text)
     {
-        echo $this->getColoredContent($text, 'yellow');
+        $this->text($text, 'yellow');
     }
 
     /**
@@ -85,7 +85,7 @@ class Console
      */
     public function comment($text)
     {
-        echo $this->getColoredContent($text, 'yellow');
+        $this->text($text, 'yellow');
     }
 
     /**
@@ -95,7 +95,7 @@ class Console
     {
         $decorate_line = str_pad('', strlen($text) + 12, '*');
         $text_line = '*     ' . $text . '     *' . PHP_EOL;
-        echo $this->getColoredContent($decorate_line . PHP_EOL . $text_line . $decorate_line, 'yellow');
+        $this->text($decorate_line . PHP_EOL . $text_line . $decorate_line, 'yellow');
     }
 
     /**
@@ -110,7 +110,7 @@ class Console
         $ask_times = 0;
         while ($answer == '' && ($ask_times < 1 || $must == true)) {
             $ask_times++;
-            $this->line($question);
+            $this->text($question);
             echo '>';
             $handle = fopen('php://stdin', 'r');
             $answer = trim(fgets($handle)) ?: ($must ? '' : $default);
@@ -146,7 +146,7 @@ class Console
      */
     public function text($text, $foreground_color = '', $background_color = '')
     {
-        echo $this->getColoredContent($text, $foreground_color, $background_color);
+        echo $this->colored($text, $foreground_color, $background_color) . PHP_EOL;
     }
 
     /**
@@ -156,13 +156,13 @@ class Console
      * @return string
      * @throws \ReflectionException
      */
-    protected function getColoredContent($text, $foreground_color = '', $background_color = '')
+    public function colored($text, $foreground_color = '', $background_color = '')
     {
         $colors = [
             Foreground::getColor($foreground_color),
             Background::getColor($background_color),
         ];
         $colors_prefix = implode('', $colors);
-        return $colors_prefix . $text . ($colors_prefix ? "\033[0m" : '') . PHP_EOL;
+        return $colors_prefix . $text . ($colors_prefix ? "\033[0m" : '');
     }
 }
